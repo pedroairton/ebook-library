@@ -7,9 +7,21 @@ import type { InferInput, SimpleError } from '@vinejs/vine/types'
 export type ParamValue = string | number | bigint | boolean
 
 export interface Registry {
-  'home': {
+  'drive.fs.serve': {
     methods: ["GET","HEAD"]
-    pattern: '/'
+    pattern: '/uploads/*'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { '*': ParamValue[] }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'authors.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/authors'
     types: {
       body: {}
       paramsTuple: []
@@ -19,64 +31,244 @@ export interface Registry {
       errorResponse: unknown
     }
   }
-  'new_account.create': {
+  'authors.create': {
     methods: ["GET","HEAD"]
-    pattern: '/signup'
+    pattern: '/authors/new'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['create']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['create']>>>
+      response: unknown
+      errorResponse: unknown
     }
   }
-  'new_account.store': {
+  'authors.store': {
     methods: ["POST"]
-    pattern: '/signup'
+    pattern: '/authors'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/user').signupValidator)>>
+      body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/user').signupValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      query: {}
+      response: unknown
+      errorResponse: unknown
     }
   }
-  'session.create': {
+  'authors.show': {
     methods: ["GET","HEAD"]
-    pattern: '/login'
+    pattern: '/authors/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'authors.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/authors/:slug/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'authors.update': {
+    methods: ["PUT"]
+    pattern: '/authors/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'authors.destroy': {
+    methods: ["DELETE"]
+    pattern: '/authors/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/categories'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/session_controller').default['create']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['create']>>>
+      response: unknown
+      errorResponse: unknown
     }
   }
-  'session.store': {
-    methods: ["POST"]
-    pattern: '/login'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/user').loginValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/user').loginValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/session_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'session.destroy': {
-    methods: ["POST"]
-    pattern: '/logout'
+  'categories.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/categories/new'
     types: {
       body: {}
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/session_controller').default['destroy']>>>
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.store': {
+    methods: ["POST"]
+    pattern: '/categories'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/categories/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/categories/:slug/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.update': {
+    methods: ["PUT"]
+    pattern: '/categories/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'categories.destroy': {
+    methods: ["DELETE"]
+    pattern: '/categories/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/books'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/books/new'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.store': {
+    methods: ["POST"]
+    pattern: '/books'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/books/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/books/:slug/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.update': {
+    methods: ["PUT"]
+    pattern: '/books/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'books.destroy': {
+    methods: ["DELETE"]
+    pattern: '/books/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
     }
   }
 }

@@ -1,30 +1,28 @@
-/*
-|--------------------------------------------------------------------------
-| Routes file
-|--------------------------------------------------------------------------
-|
-| The routes file is used for defining the HTTP routes.
-|
-*/
-
-import { middleware } from '#start/kernel'
-import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
+const AuthorsController = () => import('../app/controllers/authors_controller.ts')
+const CategoriesController = () => import('../app/controllers/categories_controller.ts')
+const BooksController = () => import('../app/controllers/books_controller.ts')
 
-router.on('/').renderInertia('home', {}).as('home')
+router.get('/authors', [AuthorsController, 'index']).as('authors.index')
+router.get('/authors/new', [AuthorsController, 'create']).as('authors.create')
+router.post('/authors', [AuthorsController, 'store']).as('authors.store')
+router.get('/authors/:slug', [AuthorsController, 'show']).as('authors.show')
+router.get('/authors/:slug/edit', [AuthorsController, 'edit']).as('authors.edit')
+router.put('/authors/:slug', [AuthorsController, 'update']).as('authors.update')
+router.delete('/authors/:slug', [AuthorsController, 'destroy']).as('authors.destroy')
 
-router
-  .group(() => {
-    router.get('signup', [controllers.NewAccount, 'create'])
-    router.post('signup', [controllers.NewAccount, 'store'])
+router.get('/categories', [CategoriesController, 'index']).as('categories.index')
+router.get('/categories/new', [CategoriesController, 'create']).as('categories.create')
+router.post('/categories', [CategoriesController, 'store']).as('categories.store')
+router.get('/categories/:slug', [CategoriesController, 'show']).as('categories.show')
+router.get('/categories/:slug/edit', [CategoriesController, 'edit']).as('categories.edit')
+router.put('/categories/:slug', [CategoriesController, 'update']).as('categories.update')
+router.delete('/categories/:slug', [CategoriesController, 'destroy']).as('categories.destroy')
 
-    router.get('login', [controllers.Session, 'create'])
-    router.post('login', [controllers.Session, 'store'])
-  })
-  .use(middleware.guest())
-
-router
-  .group(() => {
-    router.post('logout', [controllers.Session, 'destroy'])
-  })
-  .use(middleware.auth())
+router.get('/books', [BooksController, 'index']).as('books.index')
+router.get('/books/new', [BooksController, 'create']).as('books.create')
+router.post('/books', [BooksController, 'store']).as('books.store')
+router.get('/books/:slug', [BooksController, 'show']).as('books.show')
+router.get('/books/:slug/edit', [BooksController, 'edit']).as('books.edit')
+router.put('/books/:slug', [BooksController, 'update']).as('books.update')
+router.delete('/books/:slug', [BooksController, 'destroy']).as('books.destroy')
